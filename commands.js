@@ -68,7 +68,7 @@ function enwordC(msg) { msg.reply('https://www.youtube.com/watch?v=ZUXhbHESRLA&a
 function storyC(msg) { msg.reply('https://www.youtube.com/watch?v=thtxM_B9lp4&ab_channel=ToNejlep%C5%A1%C3%ADzInternetu') }
 
 async function nazorC(msg) {
-  const prompt = extractTextFromCommand(msg.content, "!")
+  const prompt = extractTextFromCommand(msg.content, "!nazor")
   const reply = await ai_reply(prompt);
   if(reply === null) {
     msg.reply("Jsem tupec a něco se pokazilo");
