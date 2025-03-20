@@ -47,7 +47,7 @@ export const commands = new Map([
   [ 
     "dox", 
     { 
-      desc: "Doxne člověka",
+      desc: "!dox @user doxne člověka",
       func: doxC
     },
   ],
