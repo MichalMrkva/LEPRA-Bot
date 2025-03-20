@@ -44,6 +44,13 @@ export const commands = new Map([
       func: nazorC
     },
   ],
+  [ 
+    "dox", 
+    { 
+      desc: "Doxne člověka",
+      func: doxC
+    },
+  ],
 ]);
 
 function allC(msg) {
@@ -96,6 +103,30 @@ export async function randomReply(msg) {
     }
     msg.reply(reply);
   }
+}
+
+async function doxC(msg) {
+  const name = extractTextFromCommand(msg.content, "!dox")
+  let userId = name; // Předpokládáme, že name může být ID nebo mention
+  
+  // Extrahuje ID z mentionu, pokud je name mention
+  if (name.startsWith("<@") && name.endsWith(">")) {
+    userId = name.slice(2, -1);
+    if (userId.startsWith('!')){
+      userId = userId.slice(1);
+    }
+  }
+  const user = await msg.guild.members.fetch(userId);
+  let info = `**Informace o uživateli ${user.user.tag}:**\n`;
+    info += `ID: ${user.id}\n`;
+    info += `Avatar: ${user.user.displayAvatarURL({ dynamic: true })}\n`;
+    info += `Banner: ${user.user.bannerURL({ dynamic: true }) || 'Žádný'}\n`;
+    info += `Datum vytvoření účtu: ${user.user.createdAt}\n`;
+    info += `Datum připojení na server: ${user.joinedAt}\n`;
+    info += `Role: ${user.roles.cache.map(role => role.name).join(', ') || 'Žádné'}\n`;
+    info += `Vlajka profilu: ${user.user.flags?.toArray().join(', ') || 'Žádné'}\n`;
+    info += `Hlasový stav: ${user.voice.channel ? `Připojen k ${user.voice.channel.name}` : 'Není připojen'}\n`;
+  msg.reply(info);
 }
 
 function extractTextFromCommand(content, commandPrefix) {
